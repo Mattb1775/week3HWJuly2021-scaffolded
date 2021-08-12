@@ -77,7 +77,7 @@ Section - Score Panel
     padding: 16px 0 32px;
 }
 
-.star-rating > li {
+.star-rating {
     display: inline-block;
     padding: 8px;
 }
@@ -109,21 +109,41 @@ Section - Modal
 /* Modal (background) */
 .modal {
     /*Hidden by default */
-    display: block;
-    width: 100%;
-    height: 100%;
+    display: none;
+    width: 30%;
+    height: 60%;
     /* Fallback color */
-    background-color: rgb(46, 61, 73);
+    background-color: white;
     /* With opacity */
-    background-color: rgba(46, 61, 73, 0.6);
+    background-color: rgba(46, 61, 73, 0.6); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-left: 700px;
+    margin-top: 400px;
+    
 }
 
 /* Modal Content/Box */
 /* TODO: Style this and make it look better */
-.modal-content {
-    
-    margin: 5% auto;
+/* .win-game-modal {
     width: 80%;
+    justify-self: left;
+    display: inline-flex; */
+/* } */
+.win-game-modal {
+    width: 80%;
+    justify-self: left;
+    display: inline-flex;
+}
+
+.modal-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin: 5% auto;
+    width: 100%;
 }
 
 /* The Close Button */
@@ -143,8 +163,10 @@ Section - Modal
 /* Modal Image*/
 .modal-img {
     display: inline-block;
-    margin: 16px 0 16px;
-    width: 320px;
+    margin: 16px 0 16px; 
+    width: 200px;
+    height: 300px;
+    
 }
 
 p.stats {
@@ -175,6 +197,7 @@ Deck of Cards
     margin-bottom: 96px;
     padding: 8px;
     width: 576px;
+    margin-left: 500px;
 }
 
 .deck,
@@ -312,3 +335,6 @@ Desktops
         font-size: 32px;
     }
 }
+
+
+/* rgb(46, 61, 73); */

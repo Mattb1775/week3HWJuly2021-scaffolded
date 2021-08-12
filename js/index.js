@@ -8,6 +8,10 @@ const reset = document.querySelector(".reset-btn");
 const playAgain = document.querySelector(".play-again-btn");
 const movesCount = document.querySelector(".moves-counter");
 let moves = 0;
+var parentStar = document.getElementById("star-rating");
+if (parentStar != null) {
+  var childStar = parentStar.querySelectorAll('.star');
+}
 const star = document.getElementById("star-rating").querySelectorAll(".star");
 let starCount = 3;
 const timeCounter = document.querySelector(".timer");
@@ -36,22 +40,25 @@ function startGame() {
   // Invoke shuffle function and store in variable
   const shuffledDeck = shuffle(deckCards);
   // Implement a for loop on the shuffledDeck array
-  
+  for( let i = 0; i < shuffledDeck.length; i++) {
     // Create the <td> tags and assign it to a variable called tdTag
-    
+    var tdTag = document.createElement('td');
     // Give tdTag Element a class of card
-    
+    tdTag.classList.add('card');
     // Create the <img> tag and assign it to an addImage variable
-    
+    const addImage = document.createElement('img');
     // make the addImage a child of the tdTag
-    
+    tdTag.appendChild(addImage);
     // Set the addImage element src path with the shuffled deck
     // TODO: replace the REPLACE ME string with the element in the shuffledDeck array at index i
-    addImage.setAttribute('src', 'img/' + 'REPLACE ME with the element in shuffleDeck at index i');
+    addImage.setAttribute('src', 'img/' + shuffledDeck[i]);
     // Add an alt tag to the addImage element
     addImage.setAttribute('alt', 'image of vault boy from fallout');
     // make the tdTag element a child of the deck element
-    
+    if (deck != null) {
+      deck.appendChild(tdTag);
+    }
+  }
 }
 
 startGame();
@@ -132,7 +139,13 @@ function compareTwo() {
   }
   // Compare the two images src in the opened array
   // TODO: implement
+  if (opened.length === 2 && opened[0].src === opened[1].src) {
+    displayMatchingCards()
+    console.log("It's a Match!")
   // if the opened array has a length of two && the element at index = 0 src string
+} else if (opened.length === 2 && opened[0].src !== opened[1].src) {
+  displayNotMatchingCards()
+  console.log("It's Not a Match!")
   // equals the element at index 1 src string
   // the image srcs match
   
@@ -144,7 +157,7 @@ function compareTwo() {
   
     // TODO: invoke the displayNotMatchingCards()
     // TODO: console log "No Match!"
-  
+  }
 }
 
 // TODO:
@@ -158,11 +171,12 @@ function displayMatchingCards() {
     opened[0].parentElement.classList.add("match");
     opened[1].parentElement.classList.add("match");
     // TODO: Push the flipped cards (opened[0] and opened[1]) to the matched array
-    
+    matched.push(opened[0])
+    matched.push(opened[1])
     // Allow for further mouse clicks on cards
     document.body.style.pointerEvents = "auto";
     // TODO: invoke the checkIsGameFinished function
-    
+    checkIsGameFinished()
    
     // Clear the opened array
     opened = [];
@@ -196,37 +210,38 @@ function addStatsToModal() {
   for (let i = 1; i <= 3; i++) {
     // Create a new Paragraph
     // TODO: create p tag and assign it a newly created statsElement variable
-    
+    const statsElement = document.createElement('p')
     // Add a class to the new Paragraph
     // TODO: add the stats class to the statsElement
-    
+    statsElement
+    statsElement.classList.add('stats')
     
     // Add the new created <p> tag to the modal content
     // TODO: add the statsElement as a child of the statsParent element
-    
+    statsParent.appendChild(statsElement);
   }
   // Select all p tags with the class of stats and update the content
   let p = statsParent.querySelectorAll("p.stats");
   // Set the new <p> to have the content of stats (time, moves and star rating)
   // TODO: Update all of the innerHTML text appropriately
-  p[0].innerHTML = "Update the time here with the minutes and seconds";
-  p[1].innerHTML = "Update this with how many moves it took";
-  p[2].innerHTML = "Update this with the star rating";
+  p[0].innerHTML = minutes + ":" + seconds;
+  p[1].innerHTML = moves;
+  p[2].innerHTML = star[0];
 }
 
 // TODO: Implement the pseudocode
 function displayModal() {
 // use getElementByID to grab the id="close" element and assign it to a variable called modalClose
-
+const modalClose = document.getElementById("close");
 // use getElementByID to grab the id="modal" element and assign it to a variable called modal
-
+const modal = document.getElementById("modal");
 // Set modal to display block to show it
-
+modal.style.display = "block";
 
 // When the user clicks on the modalClose <span> (x), 
 modalClose.onclick = function() {
     // set modal to diplay none
-    
+    modal.style.display = "none";
 };
 // When the user clicks anywhere outside of the modal, close it
   window.onclick = function(event) {
@@ -244,14 +259,14 @@ function checkIsGameFinished() {
   if (matched.length === 16) {
     // stop the game
     //TODO: invoke the stopTime function
-    
+    stopTime(); 
     // tally stats
     // TODO: invoke the addStatsToModal
-    
+    addStatsToModal();
     
     // display modal
     // TODO: invoke the displayModal function
-    
+    displayModal();
     
   }
 }
